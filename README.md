@@ -2,12 +2,12 @@
 
 This project is a Personal Portfolio & Blog Website built using Next.js. It provides a platform to showcase your portfolio, blog posts, and manage them through an authenticated dashboard. The website allows users to explore various pages like home, projects, blogs, and contact, while also offering an admin panel for managing content such as blog posts, projects, and messages
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Available-green)](https://humayun-portfolio-and-blog-website.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Available-green)](https://humayun506034.vercel.app/)
 
 Live :
 
 ```
-https://humayun-portfolio-and-blog-website.vercel.app
+https://humayun506034.vercel.app/
 ```
 
 # 🔹 Features
