@@ -76,10 +76,10 @@ https://humayun506034.vercel.app/
 1. Clone repository
 
 ```
-Clone Repository : https://github.com/HumayunKabirSobuj/humayun-portfolio-and-blog-website-client.git
+Clone Repository : https://github.com/humayun506034/Humayun-FullStack-Portfolio-Frontend.git
 ```
 
-2. cd humayun-portfolio-and-blog-website-client
+2. cd Humayun-FullStack-Portfolio-Frontend
 
 ```
 npm install
@@ -88,14 +88,8 @@ npm install
 1. Create .env file
 
 ```
-VITE_API_LINk : <provide your api link here>
-ROBOT_ANIMATION=<provide your Spline animation link here>
-GITHUB_ID=<provide your GITHUB_ID link here>
-GITHUB_SECRET=<provide your GITHUB_SECRET link here>
-GOOGLE_CLIENT_ID=<provide your GOOGLE_CLIENT_ID link here>o59ko.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=<provide your GOOGLE_CLIENT_SECRET link here>
-NEXTAUTH_SECRET=<provide your NEXTAUTH_SECRET link here>
 BACKEND_URL=<provide your BACKEND_URL link here>
+NEXT_PUBLIC_BACKEND_URL<provide your BACKEND_URL link here>
 ```
 
 4. Run Project
