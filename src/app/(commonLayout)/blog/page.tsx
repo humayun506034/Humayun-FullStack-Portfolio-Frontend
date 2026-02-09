@@ -1,64 +1,37 @@
 import { getAllBlog } from "@/app/utils/actions/blogManagement";
-import { TBlog } from "@/types/types";
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { FaExternalLinkSquareAlt } from "react-icons/fa";
+import BlogCard from "@/components/shared/BlogCard";
 
-export const metadata: Metadata = {
-  title: "HUMAYUN | Blog",
- 
+export type TBlog = {
+  _id: string;
+  image: string;
+  title: string;
+  content: string;
 };
 
 const BlogPage = async () => {
-  const blogs = await getAllBlog();
-  //   console.log(blogs.data);
+  const data = await getAllBlog();
+  const blogData = data?.data;
+
   return (
-    <div className="container mx-auto">
-      <div className="flex items-center justify-center lg:pb-16 pb-5 ">
-        <h1 className="text-2xl md:text-3xl text-center text-white font-bold border-b-2 border-[#64B5F6] inline-block">
-          All <span className="text-[#64B5F6]">Blogs</span>
+    <div className="sm:px-16 px-6 pt-5 max-w-7xl mx-auto relative z-0">
+      {/* Section Title */}
+      <div className="flex flex-col items-center justify-center mb-12">
+        <h1 className="text-3xl md:text-4xl text-center font-bold text-white relative border-b-2 border-[#64B5F6] inline-block">
+          All{" "}
+          <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+            Blogs
+          </span>
+        
         </h1>
       </div>
-      <div className="space-y-5 lg:space-y-8">
-        {blogs?.data?.map((blog: TBlog) => (
-          <div
-            key={blog._id}
-            className="flex gap-4 flex-col lg:flex-row lg:px-10 px-3 h-auto"
-          >
-            <div className="w-full lg:w-[30%] overflow-hidden rounded-xl flex items-center justify-center  ">
-              <Image
-                className="object-cover rounded-xl h-full "
-                src={blog?.image}
-                alt="Medcamp Image"
-                height={800}
-                width={500}
-              />
-            </div>
-            <div className="w-full lg:w-[70%]">
-              <div className="flex  items-center lg:justify-between gap-4 flex-col md:flex-row ">
-                <div className="flex items-center  gap-5">
-                  <h2 className="text-2xl text-center md:text-left font-semibold text-white">
-                    {blog?.title}
-                  </h2>
-                </div>
-                <div className="flex text-blue-200 lg:gap-7 gap-4 lg:mr-7 ">
-                  <Link
-                    href={`/blog/${blog?._id}`}
-                  >
-                    <p className="inline-flex  items-center hover:text-blue-600 duration-200 text-nowrap">
-                      Details{" "}
-                      <FaExternalLinkSquareAlt className="mb-[2px] ml-2" />
-                    </p>
-                  </Link>
-                </div>
-              </div>
-              <p className="text-justify pt-5 text-white">
-                {blog?.short_description}
-              </p>
-             
-            </div>
-          </div>
+
+      {/* Description */}
+      <div className="w-full flex">
+        <p className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]  animate-fade-in delay-200"></p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {blogData?.map((blog: TBlog) => (
+          <BlogCard key={blog._id} blog={blog} />
         ))}
       </div>
     </div>

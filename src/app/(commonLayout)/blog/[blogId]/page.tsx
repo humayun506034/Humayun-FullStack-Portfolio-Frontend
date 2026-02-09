@@ -1,82 +1,75 @@
-import { getAllBlog } from "@/app/utils/actions/blogManagement";
-import { TBlog } from "@/types/types";
-import { Metadata } from "next";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import Link from "next/link";
-import { ImCross } from "react-icons/im";
-export const metadata: Metadata = {
-  title: "Blog Details",
-};
-interface IProps {
-  params: Promise<{
-    blogId: string;
-  }>;
-}
-const BlogDetailsPage = async ({ params }:IProps) => {
-  const blogs = await getAllBlog();
-  const blogId = (await params).blogId
-  const matchBlog: TBlog | undefined = blogs?.data.find(
-    (blog: TBlog) => blog._id === blogId
-  );
+import { ArrowLeft,} from 'lucide-react';
 
-  if (!matchBlog) {
+import { getAllBlog } from "@/app/utils/actions/blogManagement";
+
+const BlogDetailsPage = async ({ params }: { params: Promise<{ blogId: string }> }) => {
+  const { blogId } = await params;
+  const blogs = await getAllBlog();
+  const blog = blogs?.data.find((blog: any) => blog._id === blogId);
+
+  if (!blog) {
     return (
-      <div className="flex items-center justify-center h-screen text-white text-xl">
-        Blog not found!
+      <div className="flex h-[70vh] w-full flex-col items-center justify-center">
+        <h1 className="mb-4 text-2xl font-bold text-white">Blog not found</h1>
+        <Link 
+          href="/blog" 
+          className="flex items-center gap-2 rounded-md bg-gray-800 px-4 py-2 text-white transition-colors hover:bg-gray-700"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to blogs
+        </Link>
       </div>
     );
   }
 
+
+
   return (
-    <div className="bg-gray-800 shadow-2xl text-white p-6 rounded-xl w-5/6 mx-auto flex flex-col gap-6 my-5">
-      <div className=" flex items-center justify-end">
-        <div className="flex-1">
-          <div className="flex items-center justify-center">
-            <h1 className="text-2xl md:text-3xl text-center text-white font-bold border-b-2 border-[#64B5F6] inline-block">
-              Blog <span className="text-[#64B5F6]">Details</span>
-            </h1>
-          </div>
-        </div>
-        <div>
-          <Link href={"/blog"}>
-            <button className="text-2xl border-2 rounded-full">
-              <div className="p-2">
-                <ImCross />
-              </div>
-            </button>
-          </Link>
+    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      {/* Back button */}
+      <Link 
+        href="/blog" 
+        className="mb-8 inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <span>Back to all blogs</span>
+      </Link>
+
+      {/* Title and metadata */}
+      <div className="mb-8">
+        <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          {blog.title}
+        </h1>
+
+        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+         
+          
+        
         </div>
       </div>
 
-      {/* Blog Image */}
-      <div className="w-full h-[300px] relative">
-        {matchBlog.image ? (
+      {/* Featured image with gradient border */}
+      <div className="relative mb-10 overflow-hidden rounded-xl border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 p-1 shadow-xl">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
           <Image
-            className="object-cover rounded-lg"
-            src={matchBlog.image}
-            alt="Blog Image"
+            src={blog.image || "/placeholder.svg"}
+            alt={blog.title}
             fill
+            priority
+            className="object-cover"
           />
-        ) : (
-          <div className="w-full h-full bg-gray-700 flex items-center justify-center rounded-lg">
-            No Image Available
-          </div>
-        )}
+        </div>
       </div>
 
-      {/* Blog Details */}
-      <div className="w-full flex flex-col justify-center">
-        <h2 className="text-3xl font-bold">{matchBlog.title}</h2>
-        <p className="text-sm text-gray-300 pt-2">
-          {matchBlog.long_description}
-        </p>
-        <p className="text-lg font-semibold text-green-400 pt-3">
-          Author: {matchBlog.author?.name || "Unknown"}
-        </p>
-        <p className="text-lg font-semibold text-green-400 pt-1">
-          Email: {matchBlog.author?.email || "Not Available"}
-        </p>
-      </div>
+      {/* Content */}
+      <article className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-gray-300 prose-a:text-purple-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-purple-500 prose-strong:text-white">
+        <div className="text-white" dangerouslySetInnerHTML={{ __html: blog.content }} />
+      </article>
+
+      
     </div>
   );
 };

@@ -1,30 +1,32 @@
-import Link from "next/link";
-import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
+
+
+"use client"
+
+import { Github, Linkedin, Facebook } from "lucide-react"
 
 const SocialIcons = () => {
-    return (
-        <div >
-            <div className="text-white flex gap-10 text-xl">
-               
-                <div className="flex justify-center items-center p-2 border-white border-2 hover:bg-blue-300 duration-300 hover:border-blue-300 cursor-pointer rounded-full">
-                    <Link target="_blank" href="https://github.com/HumayunKabirSobuj">
-                        <FaGithub />
-                    </Link>
-                </div>
-                <div className="flex justify-center items-center p-2 border-white border-2 hover:bg-blue-300 duration-300 hover:border-blue-300 cursor-pointer rounded-full">
-                    <Link target="_blank" href="https://www.linkedin.com/in/devhumayun123">
-                        <FaLinkedinIn />
-                    </Link>
-                </div>
-                <div className="flex justify-center items-center p-2 border-white border-2 hover:bg-blue-300 duration-300 hover:border-blue-300 cursor-pointer rounded-full">
-                    <Link target="_blank" href="https://web.facebook.com/md.humayunkabirsobuj506034">
-                        <FaFacebookF />
-                    </Link>
-                </div>
-               
-            </div>
-        </div>
-    );
-};
+  const socialLinks = [
+    { icon: <Github size={20} />, url: "hhttps://github.com/HumayunKabirSobuj", label: "GitHub" },
+    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/devhumayun123", label: "LinkedIn" },
+    { icon: <Facebook size={20} />, url: "https://web.facebook.com/md.humayunkabirsobuj506034", label: "Facebook" },
+  ]
 
-export default SocialIcons;
+  return (
+    <div className="flex gap-4">
+      {socialLinks.map((social, index) => (
+        <a
+          key={index}
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.label}
+          className="h-10 w-10 rounded-full bg-gray-800 hover:bg-blue-500 flex items-center justify-center transition-colors duration-300"
+        >
+          {social.icon}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+export default SocialIcons
